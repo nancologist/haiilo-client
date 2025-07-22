@@ -1,0 +1,15 @@
+<div class="item-card">
+  <p class="item-name">{{ item.name }}</p>
+  <div *ngIf="item.offer" class="offer-details offer-available">
+    <p class="offer-text">Buy {{ item.offer.quantity }} for ${{ item.offer.price | number:'1.2-2' }}</p>
+  </div>
+
+  <div class="item-ctrl">
+    <p class="item-price">${{ item.price | number:'1.2-2' }}</p>
+    <div>
+      <app-button label="scan"/>
+      <app-button label="edit"/>
+    </div>
+  </div>
+
+</div>

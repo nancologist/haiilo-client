@@ -1,0 +1,32 @@
+.simple-button {
+  display: inline-block;
+  padding: 12px 28px; /* Vertical and horizontal padding */
+  font-size: 1rem; /* Base font size */
+  font-weight: 600; /* Semi-bold text */
+  text-align: center;
+  text-decoration: none; /* Remove underline for links acting as buttons */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer; /* Indicate it's clickable */
+  border: none; /* No default border */
+
+  /* Colors */
+  background-color: #4CAF50; /* A pleasant green */
+  color: #ffffff; /* White text */
+
+  /* Transitions for smooth hover effects */
+  transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+
+  /* Subtle shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.simple-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.simple-button:active {
+  transform: translateY(0); /* Return to original position on click */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Reduced shadow on click */
+}

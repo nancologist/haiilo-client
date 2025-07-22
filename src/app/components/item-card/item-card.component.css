@@ -1,0 +1,45 @@
+.item-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease-in-out;
+  overflow: hidden;
+  padding: 10px 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+}
+
+
+.item-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.item-price {
+  color: #1f2937;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.offer-details {
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  width: fit-content;
+}
+
+.offer-available {
+  background-color: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+}
+
+.offer-text {
+  font-size: 1rem;
+}
