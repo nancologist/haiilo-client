@@ -24,6 +24,7 @@
   color: #1f2937;
   font-size: 1.25rem;
   font-weight: 700;
+  text-align: center;
 }
 
 .offer-details {
@@ -42,4 +43,8 @@
 
 .offer-text {
   font-size: 1rem;
+}
+
+.button {
+  margin: 5px;
 }

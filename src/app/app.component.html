@@ -1,29 +1,11 @@
 <div class="app-container">
+
   <h1 class="app-title">
     {{ title }}
   </h1>
 
-  <div class="content-wrapper">
-    <ng-container *ngIf="itemsState$ | async as state">
-      <div *ngIf="state.loading" class="loading-state">
-        <div class="spinner"></div>
-        <p class="loading-text">Loading items...</p>
-      </div>
-
-      <div *ngIf="state.error" class="error-state">
-        <strong class="error-bold">Error!</strong>
-        <span class="error-message">{{ state.error }}</span>
-        <p class="error-hint">Please try refreshing the page or contact support.</p>
-      </div>
-
-      <div *ngIf="state.items && state.items.length > 0" class="items-grid">
-        <app-item-card *ngFor="let item of state.items" [item]="item" />
-      </div>
-
-      <div *ngIf="state.items && state.items.length === 0 && !state.loading && !state.error" class="no-items-state">
-        <p>No items available at the moment.</p>
-        <p class="no-items-hint">Please check back later!</p>
-      </div>
-    </ng-container>
+  <div class="app-body">
+    <app-main class="main" />
+    <div class="side" class="side">No item scanned yet</div>
   </div>
 </div>
