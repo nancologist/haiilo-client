@@ -3,7 +3,8 @@ import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {ItemCardComponent} from '../item-card/item-card.component';
 import {catchError, map, Observable, of, startWith} from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Item} from '../../../types';
+import {Item, ItemScanEvent} from '../../../types';
+import {OrderService} from '../../services/order.service';
 
 type ItemsState = {
   items: Item[] | null
@@ -25,8 +26,16 @@ type ItemsState = {
 export class MainComponent {
   itemsState$: Observable<ItemsState>;
 
-  constructor(private http: HttpClient) {
-    this.itemsState$ = http.get<Item[]>("http://localhost:8080/items").pipe(
+  constructor(private http: HttpClient, private orderService: OrderService) {
+    this.itemsState$ = this.fetchItems();
+  }
+
+  onItemScanned(event: ItemScanEvent) {
+    this.orderService.addItem(event);
+  }
+
+  private fetchItems(): Observable<ItemsState> {
+    return this.http.get<Item[]>("http://localhost:8080/items").pipe(
       map((items) => ({ items, loading: false, error: null })),
       catchError((error) => {
         let errMsg: string
@@ -51,6 +60,6 @@ export class MainComponent {
         })
       }),
       startWith({ loading: true, items: null, error: null })
-    )
+    );
   }
 }

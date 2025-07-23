@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {Item} from '../../../types';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Item, ItemScanEvent} from '../../../types';
 import {DecimalPipe, NgIf} from '@angular/common';
 import {ButtonComponent} from '../button/button.component';
 
@@ -16,4 +16,11 @@ import {ButtonComponent} from '../button/button.component';
 export class ItemCardComponent {
   @Input({ required: true })
   item!: Item
+
+  @Output()
+  itemScanned = new EventEmitter<ItemScanEvent>()
+
+  onItemScanned(item: Item) {
+    this.itemScanned.emit({ itemId: item.id, itemName: item.name });
+  }
 }

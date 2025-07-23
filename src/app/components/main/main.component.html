@@ -12,7 +12,7 @@
     </div>
 
     <div *ngIf="state.items && state.items.length > 0" class="items-grid">
-      <app-item-card *ngFor="let item of state.items" [item]="item" />
+      <app-item-card *ngFor="let item of state.items" [item]="item" (itemScanned)="onItemScanned($event)" />
     </div>
 
     <div *ngIf="state.items && state.items.length === 0 && !state.loading && !state.error" class="no-items-state">

@@ -1,0 +1,15 @@
+<ng-container *ngIf="orderItems$ | async as orderItems">
+  <p *ngIf="orderItems.length == 0">
+    No item scanned yet
+  </p>
+
+  <div *ngIf="orderItems.length > 0">
+    <div *ngFor="let orderItem of orderItems">
+      <div class="order-item">
+        <span>{{orderItem.itemName}}</span>
+        <span>x{{orderItem.quantity}}</span>
+      </div>
+      <hr>
+    </div>
+  </div>
+</ng-container>

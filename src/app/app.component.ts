@@ -6,6 +6,7 @@ import {Item} from '../types';
 import {AsyncPipe, DecimalPipe, NgForOf, NgIf} from '@angular/common';
 import {ItemCardComponent} from './components/item-card/item-card.component';
 import {MainComponent} from './components/main/main.component';
+import {OrderComponent} from './components/order/order.component';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ import {MainComponent} from './components/main/main.component';
     AsyncPipe,
     NgForOf,
     ItemCardComponent,
-    MainComponent
+    MainComponent,
+    OrderComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

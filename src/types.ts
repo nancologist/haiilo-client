@@ -9,3 +9,14 @@ export type Item = {
   price: number;
   offer: Offer | null;
 }
+
+export type ItemScanEvent = {
+  itemId: number;
+  itemName: string;
+}
+
+export type OrderItem = {
+  itemId: number;
+  itemName: string;
+  quantity: number;
+}
