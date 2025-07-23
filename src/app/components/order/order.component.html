@@ -1,9 +1,9 @@
-<ng-container *ngIf="orderItems$ | async as orderItems">
+<div *ngIf="orderItems$ | async as orderItems" class="side-container">
   <p *ngIf="orderItems.length == 0">
     No item scanned yet
   </p>
 
-  <div *ngIf="orderItems.length > 0">
+  <div *ngIf="orderItems.length > 0" class="list-container">
     <div *ngFor="let orderItem of orderItems">
       <div class="order-item">
         <span>{{orderItem.itemName}}</span>
@@ -11,5 +11,15 @@
       </div>
       <hr>
     </div>
+
+    <div *ngIf="orderService.sum$ | async as sum" class="order-item">
+      <strong>Total:</strong>
+      <span>${{sum}}</span>
+    </div>
   </div>
-</ng-container>
+
+  <div class="side-ctrl" *ngIf="orderItems.length > 0">
+    <app-button label="RESET" (click)="resetOrder()" />
+    <app-button label="CHECKOUT" (click)="checkout()" />
+  </div>
+</div>
