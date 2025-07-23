@@ -14,13 +14,20 @@ import {ButtonComponent} from '../button/button.component';
   styleUrl: 'item-card.component.css'
 })
 export class ItemCardComponent {
-  @Input({ required: true })
+  @Input({required: true})
   item!: Item
 
   @Output()
   itemScanned = new EventEmitter<ItemScanEvent>()
 
-  onItemScanned(item: Item) {
-    this.itemScanned.emit({ itemId: item.id, itemName: item.name });
+  @Output()
+  itemEdited = new EventEmitter<Item>()
+
+  onItemScanned() {
+    this.itemScanned.emit({itemId: this.item.id, itemName: this.item.name});
+  }
+
+  edit() {
+    this.itemEdited.emit({...this.item})
   }
 }

@@ -20,3 +20,9 @@ export type OrderItem = {
   itemName: string;
   quantity: number;
 }
+
+export type ItemsState = {
+  items: Item[] | null
+  loading: boolean;
+  error: string | null;
+}

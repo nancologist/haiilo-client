@@ -1,22 +1,40 @@
+<ng-container *ngIf="itemsState$ | async as state">
+  <div *ngIf="state.loading" class="loading-state">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading items...</p>
+  </div>
 
-  <ng-container *ngIf="itemsState$ | async as state">
-    <div *ngIf="state.loading" class="loading-state">
-      <div class="spinner"></div>
-      <p class="loading-text">Loading items...</p>
-    </div>
+  <div *ngIf="state.error" class="error-state">
+    <strong class="error-bold">Error!</strong>
+    <span class="error-message">{{ state.error }}</span>
+    <p class="error-hint">Please try refreshing the page or contact support.</p>
+  </div>
 
-    <div *ngIf="state.error" class="error-state">
-      <strong class="error-bold">Error!</strong>
-      <span class="error-message">{{ state.error }}</span>
-      <p class="error-hint">Please try refreshing the page or contact support.</p>
-    </div>
+  <div *ngIf="state.items && state.items.length > 0" class="items-grid">
+    <app-item-card
+      *ngFor="let item of state.items" [item]="item"
+      (itemScanned)="onItemScanned($event)"
+      (itemEdited)="setEditItem($event)"
+    />
+  </div>
 
-    <div *ngIf="state.items && state.items.length > 0" class="items-grid">
-      <app-item-card *ngFor="let item of state.items" [item]="item" (itemScanned)="onItemScanned($event)" />
-    </div>
+  <div *ngIf="state.items && state.items.length === 0 && !state.loading && !state.error" class="no-items-state">
+    <p>No items available at the moment.</p>
+    <p class="no-items-hint">Please check back later!</p>
+  </div>
+</ng-container>
 
-    <div *ngIf="state.items && state.items.length === 0 && !state.loading && !state.error" class="no-items-state">
-      <p>No items available at the moment.</p>
-      <p class="no-items-hint">Please check back later!</p>
-    </div>
-  </ng-container>
+<app-modal>
+  <div modal-header>
+    <h2>Update price of {{ editItem.name }}</h2>
+  </div>
+
+  <div modal-body>
+    $<input type="number" [(ngModel)]="editItem.price" />
+    <p *ngIf="editItem.offer != null">Warning: If you update the price, the special offer will be removed</p>
+  </div>
+
+  <div modal-footer>
+    <app-button label="UPDATE" (click)="updatePrice()" />
+  </div>
+</app-modal>

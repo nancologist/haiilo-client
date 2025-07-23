@@ -7,8 +7,8 @@
   <div class="item-ctrl">
     <p class="item-price">${{ item.price | number:'1.2-2' }}</p>
     <div>
-      <app-button class="button" label="scan" (click)="onItemScanned(item)"/>
-      <app-button class="button" label="edit"/>
+      <app-button class="button" label="scan" (click)="onItemScanned()"/>
+      <app-button class="button" label="edit" (click)="edit()"/>
     </div>
   </div>
 
