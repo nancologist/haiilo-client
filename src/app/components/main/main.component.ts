@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
-import {ItemCardComponent} from '../item-card/item-card.component';
+import {ItemCardComponent} from '../UI/item-card/item-card.component';
 import {catchError, map, Observable, of, startWith} from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Item, ItemScanEvent} from '../../../types';

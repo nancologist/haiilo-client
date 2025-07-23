@@ -3,7 +3,7 @@ import {OrderService} from '../../services/order.service';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {Observable} from 'rxjs';
 import {OrderItem} from '../../../types';
-import {ButtonComponent} from '../button/button.component';
+import {ButtonComponent} from '../UI/button/button.component';
 
 @Component({
   selector: 'app-order',

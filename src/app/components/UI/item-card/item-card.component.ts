@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Item, ItemScanEvent} from '../../../types';
+import {Item, ItemScanEvent} from '../../../../types';
 import {DecimalPipe, NgIf} from '@angular/common';
 import {ButtonComponent} from '../button/button.component';
 
