@@ -26,12 +26,15 @@
 
 <app-modal>
   <div modal-header>
-    <h2>Update price of {{ editItem.name }}</h2>
+    <h2>Update price of {{ editedItem.name }}</h2>
   </div>
 
   <div modal-body>
-    $<input type="number" [(ngModel)]="editItem.price" />
-    <p *ngIf="editItem.offer != null">Warning: If you update the price, the special offer will be removed</p>
+    $<input type="number" [(ngModel)]="editedItem.price" />
+    <p *ngIf="editedItem.offer != null">Warning: If you update the price, the special offer will be removed</p>
+    <ng-container *ngIf="priceUpdateState$ | async as priceUpdateState">
+      <div *ngIf="priceUpdateState.error" [ngStyle]="{ color: 'red' }">{{ priceUpdateState.error }}</div>
+    </ng-container>
   </div>
 
   <div modal-footer>

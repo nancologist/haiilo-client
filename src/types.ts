@@ -21,8 +21,19 @@ export type OrderItem = {
   quantity: number;
 }
 
-export type ItemsState = {
+export type ItemsFetchState = {
   items: Item[] | null
+  loading: boolean;
+  error: string | null;
+}
+
+export type PriceUpdateState = {
+  succeeded: boolean,
+  error: string | null;
+}
+
+export type CheckoutPostState = {
+  sum: number | undefined;
   loading: boolean;
   error: string | null;
 }

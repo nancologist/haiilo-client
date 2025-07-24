@@ -12,9 +12,17 @@
       <hr>
     </div>
 
-    <div *ngIf="orderService.sum$ | async as sum" class="order-item">
-      <strong>Total:</strong>
-      <span>${{sum}}</span>
+    <div *ngIf="orderService.checkoutState$ | async as checkoutState" class="order-item">
+      <ng-container *ngIf="checkoutState.sum">
+        <strong>Total:</strong>
+        <span>${{checkoutState.sum}}</span>
+      </ng-container>
+      <ng-container *ngIf="checkoutState.loading">
+        <span>Calculating...</span>
+      </ng-container>
+      <ng-container *ngIf="checkoutState.error">
+        <span [ngStyle]="{ color: 'red' }">{{checkoutState.error}}</span>
+      </ng-container>
     </div>
   </div>
 

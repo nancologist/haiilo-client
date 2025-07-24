@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
+import {AsyncPipe, NgForOf, NgIf, NgStyle} from '@angular/common';
 import {ItemCardComponent} from '../UI/item-card/item-card.component';
-import {Observable} from 'rxjs';
-import {Item, ItemScanEvent, ItemsState} from '../../../types';
+import {Observable, of} from 'rxjs';
+import {Item, ItemScanEvent, ItemsFetchState, PriceUpdateState} from '../../../types';
 import {OrderService} from '../../services/order.service';
 import {ModalComponent} from '../UI/modal/modal.component';
 import {ModalService} from '../UI/modal/modal.service';
@@ -21,17 +21,23 @@ import {ItemService} from '../../services/item.service';
     NgIf,
     ModalComponent,
     ButtonComponent,
-    FormsModule
+    FormsModule,
+    NgStyle
   ]
 })
 export class MainComponent {
-  itemsState$: Observable<ItemsState>;
-  editItem: Item = {
+  itemsState$: Observable<ItemsFetchState>;
+  editedItem: Item = {
     id: -1,
     name: '',
     price: 0,
     offer: null
   };
+
+  priceUpdateState$: Observable<PriceUpdateState> = of({
+    succeeded: false,
+    error: null
+  });
 
   constructor(
     private itemService: ItemService,
@@ -46,18 +52,21 @@ export class MainComponent {
   }
 
   setEditItem(item: Item) {
-    this.editItem = item;
+    this.editedItem = item;
     this.modalService.open();
   }
 
   updatePrice() {
-    if (!this.editItem) {
+    if (!this.editedItem) {
       throw new Error("Item to edit is undefined.")
     }
 
-    this.itemService.updatePrice({...this.editItem}).subscribe(() => {
-      this.itemsState$ = this.itemService.fetchItems();
-      this.modalService.close();
+    this.priceUpdateState$ = this.itemService.updatePrice({...this.editedItem})
+    this.priceUpdateState$.subscribe((state) => {
+      if (state.succeeded) {
+        this.itemsState$ = this.itemService.fetchItems();
+        this.modalService.close();
+      }
     })
   }
 }

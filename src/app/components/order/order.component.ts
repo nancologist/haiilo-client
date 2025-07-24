@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {OrderService} from '../../services/order.service';
-import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
+import {AsyncPipe, NgForOf, NgIf, NgStyle} from '@angular/common';
 import {Observable} from 'rxjs';
 import {OrderItem} from '../../../types';
 import {ButtonComponent} from '../UI/button/button.component';
@@ -11,7 +11,8 @@ import {ButtonComponent} from '../UI/button/button.component';
     NgIf,
     AsyncPipe,
     NgForOf,
-    ButtonComponent
+    ButtonComponent,
+    NgStyle
   ],
   templateUrl: 'order.component.html',
   styleUrl: 'order.component.css'

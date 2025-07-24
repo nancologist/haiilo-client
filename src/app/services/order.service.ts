@@ -1,22 +1,30 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, catchError, map, Observable, of} from 'rxjs';
-import {ItemScanEvent, OrderItem} from '../../types';
+import {BehaviorSubject, catchError, map, Observable, of, startWith} from 'rxjs';
+import {CheckoutPostState, ItemScanEvent, OrderItem} from '../../types';
 import {HttpClient} from '@angular/common/http';
+import {createErrorMessageForUser} from './utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
   private orderItems = new BehaviorSubject<OrderItem[]>([]);
-  // private sum = new BehaviorSubject<number>(0)
   public readonly orderItems$ = this.orderItems.asObservable();
-  public sum$ : Observable<number> | undefined;
+  public checkoutState$ : Observable<CheckoutPostState> = of({
+    sum: undefined,
+    loading: false,
+    error: null
+  });
 
   constructor(private http: HttpClient) {
   }
 
   addItem(event: ItemScanEvent): void {
-    this.sum$ = undefined;
+    this.checkoutState$ = of({
+      sum: undefined,
+      loading: false,
+      error: null
+    });
     const currentOrder = this.orderItems.getValue();
     const index = currentOrder.findIndex(order => order.itemId == event.itemId);
     const itemAlreadyInOrder = index > -1;
@@ -41,20 +49,21 @@ export class OrderService {
     const data = {
       cart: this.orderItems.getValue().map(({ itemId, quantity }) => ({ itemId, quantity }))
     }
-    this.sum$ = this.http.post<{ sum: number }>("http://localhost:8080/checkout", data).pipe(
-      map((res) => res.sum),
-      catchError(err => {
-        if (err instanceof  Error) {
-          console.error(`An error occurred: ${err.message}`)
-        }
-        console.error("Unknown error!");
-        return of()
-      })
+    this.checkoutState$ = this.http.post<{ sum: number }>("http://localhost:8080/checkout", data).pipe(
+      map((res) => ({ sum: res.sum, loading: false, error: null })),
+      catchError(error => {
+        return of({ sum: undefined, loading: false, error: createErrorMessageForUser(error) });
+      }),
+      startWith({ sum: undefined, loading: true, error: null })
     )
   }
 
   clearOrder(): void {
-    this.sum$ = undefined;
+    this.checkoutState$ = of({
+      sum: undefined,
+      loading: false,
+      error: null
+    });
     this.orderItems.next([]);
   }
 }
