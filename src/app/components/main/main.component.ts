@@ -66,6 +66,7 @@ export class MainComponent {
       if (state.succeeded) {
         this.itemsState$ = this.itemService.fetchItems();
         this.modalService.close();
+        this.orderService.clearOrder();
       }
     })
   }

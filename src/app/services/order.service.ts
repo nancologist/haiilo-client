@@ -10,7 +10,7 @@ import {createErrorMessageForUser} from './utils';
 export class OrderService {
   private orderItems = new BehaviorSubject<OrderItem[]>([]);
   public readonly orderItems$ = this.orderItems.asObservable();
-  public checkoutState$ : Observable<CheckoutPostState> = of({
+  public sumState$ : Observable<CheckoutPostState> = of({
     sum: undefined,
     loading: false,
     error: null
@@ -20,7 +20,7 @@ export class OrderService {
   }
 
   addItem(event: ItemScanEvent): void {
-    this.checkoutState$ = of({
+    this.sumState$ = of({
       sum: undefined,
       loading: false,
       error: null
@@ -49,7 +49,7 @@ export class OrderService {
     const data = {
       cart: this.orderItems.getValue().map(({ itemId, quantity }) => ({ itemId, quantity }))
     }
-    this.checkoutState$ = this.http.post<{ sum: number }>("http://localhost:8080/checkout", data).pipe(
+    this.sumState$ = this.http.post<{ sum: number }>("http://localhost:8080/checkout", data).pipe(
       map((res) => ({ sum: res.sum, loading: false, error: null })),
       catchError(error => {
         return of({ sum: undefined, loading: false, error: createErrorMessageForUser(error) });
@@ -59,7 +59,7 @@ export class OrderService {
   }
 
   clearOrder(): void {
-    this.checkoutState$ = of({
+    this.sumState$ = of({
       sum: undefined,
       loading: false,
       error: null

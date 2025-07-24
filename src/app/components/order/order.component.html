@@ -12,7 +12,7 @@
       <hr>
     </div>
 
-    <div *ngIf="orderService.checkoutState$ | async as checkoutState" class="order-item">
+    <div *ngIf="orderService.sumState$ | async as checkoutState" class="order-item">
       <ng-container *ngIf="checkoutState.sum">
         <strong>Total:</strong>
         <span>${{checkoutState.sum}}</span>

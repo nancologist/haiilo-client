@@ -31,6 +31,7 @@
 
   <div modal-body>
     $<input type="number" [(ngModel)]="editedItem.price" />
+    <p>Warning: If you have items in checkout list, they will be removed.</p>
     <p *ngIf="editedItem.offer != null">Warning: If you update the price, the special offer will be removed</p>
     <ng-container *ngIf="priceUpdateState$ | async as priceUpdateState">
       <div *ngIf="priceUpdateState.error" [ngStyle]="{ color: 'red' }">{{ priceUpdateState.error }}</div>
